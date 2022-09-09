@@ -1,0 +1,25 @@
+|-cms
+    ├── cms_app                   # app应用程序 Flask对象
+    │   ├── __init__.py       # app模块初始化文件，主要对db和app创建的方法
+    │   ├── admin             # 后台模块
+    │   │   ├── __init__.py   # admin模块初始化文件，创建admin蓝图对象
+    │   │   └── views.py      # 视图文件
+    │   ├── home               # 前台模块
+    │   │   ├── __init__.py   # home模块初始文件，创建home蓝图对象
+    │   │   └── views.py      # 视图文件
+    │   ├── models.py          # 数据库模型文件
+    │   ├── static             # 存css、js等的静态文件夹
+    │   └── templates          # 前后台页面html文件，模板
+    │       ├── admin
+    │       └── home
+    └── manage.py              # 启动文件
+    |——venv                    # 虚拟环境
+
+session测试
+   终端:>redis-cli
+   keys * 测试查看session保存到redis
+【数据库表生成】
+初始化数据库模型文件，终端进入虚拟环境，执行命令
+python manage.py db init  #初始化迁移文件
+你会发现项目根目录自动生成了 migrations 文件夹，然后在终端执行数据库初始化：
+python manage.py db migrate -m 'init_tables'

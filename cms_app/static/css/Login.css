@@ -1,0 +1,112 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    background: url('/static/home/images/demo-1-bg.jpg')no-repeat;
+    height: 100vh;
+}
+
+.login-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 6vh 6vw;
+    opacity: .8;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #666666;
+}
+
+.login-div .form-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 3vh;
+    padding-left: 4rem;
+    letter-spacing: 4rem;
+}
+
+.input-div {
+    position: relative;
+    padding: 5px;
+    margin-bottom: 2vh;
+}
+
+.input-div,
+.btn-div {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.input-div label {
+    position: absolute;
+    left: 1rem;
+    top: .5rem;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+.input-div input:focus ~ label,
+.input-div input:valid ~ label {
+    left: 0;
+    top: -0.9rem;
+    font-size: 0.9rem;
+}
+
+.btn-div button {
+    outline: none;
+    border: none;
+    margin-top: 3vh;
+    width: 90%;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 3px 3px 5px #999999;
+    background-color: #4bbec6;
+    color: white;
+    font-size: 16px;
+}
+
+.input-div input {
+    padding: 0 1rem;
+    outline: none;
+    caret-color: #ffffff;
+    color: #ffffff;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid #4bbec6;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .input-div input {
+        width: 55vw;
+        height: 5vh;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    .input-div input {
+        width: 30vw;
+        height: 5vh;
+    }
+}
+
+@media (min-width: 1200px) {
+    .input-div input {
+        width: 15vw;
+        height: 5vh;
+    }
+}
+
+

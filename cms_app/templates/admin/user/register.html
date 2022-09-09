@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台注册</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,inital-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer"content="webkit">
+    <meta http-equiv="Cache-Control"content="no-siteapp"/>
+    <link rel="alternate ico" type="image/png" href="/static/admin/assets/i/favicon.png">
+    <link rel="stylesheet" href="/static/admin/assets/css/amazeui.min.css"/>
+    <style>
+        .header{
+            text-align: center;
+        }
+        .header h1{
+            font-size: 200%;
+            color:#333;
+            margin-top: 30px;;
+        }
+        .header p{
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="am-g">
+        <h1>cms后台管理系统</h1>
+        <p>Intergrate Development Enviroment <br/>专业细致，代码生成，界面设计，调试，编译</p>
+    </div>
+    <hr/>
+</div>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <h3>请填写以下信息注册新用户:</h3>
+        <hr>
+        <form method="post" action="" class="am-form">
+            <label>用户名:</label>
+            <input type="text" id="username" placeholder="请输入用户名">
+            <br>
+            <label>手机号:</label>
+            <input type="text" id="mobile" placeholder="请输入手机号">
+            <br/>
+            <label>密码:</label>
+            <input type="password" id="password" placeholder="请输入密码">
+            <br>
+            <label>确认密码:</label>
+            <input type="password" id="check_password" placeholder="请再次输入密码">
+            <br>
+            <div class="am-cf">
+                <input type="button" value="注册" class="am-btn am-btn-primary am-btn-sm am-f1 register">
+            </div>
+        </form>
+    </div>
+    <hr>
+    {# {% include 'admin/common/_footer.html'%} #}
+</div>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+</body>
+<script>
+    $(function (){
+        //注册
+        $('.register').click(function (){
+            var info = {
+                username:$("#username").val(),
+                mobile:$("#mobile").val(),
+                password:$("#password").val(),
+                check_password:$("#check_password").val()
+            }
+        //js验证用户必填
+            if(info.username==""){
+                alert('请填写用户名')
+                return false
+            }
+        //其他js验证自行完善
+            $.ajax({
+                type:'POST',
+                url:'/admin/user/register',
+                data:JSON.stringify(info),//js对象转换成json格式发送给后端
+                success:function (data){ //后端返回（回调）过来的数据（信息）
+                    if (data.stata==0){
+                        alert(data.msg)
+                    }else {
+                        alert(data.msg)
+                        location.href='/admin/user/login'//注册成功后跳转到登录
+                    }
+                }
+            })
+        })
+    })
+</script>
+</html>
