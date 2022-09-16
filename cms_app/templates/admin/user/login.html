@@ -1,4 +1,4 @@
-{% extends 'admin/user/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
     在线博客平台.登录
@@ -37,7 +37,7 @@
             </div>
         </form>
     </div>
-    <script>
+   <script>
         layui.use('form', function(){
             var form = layui.form;
             form.on('submit(formDemo)', function(data){
@@ -45,7 +45,6 @@
         });
     </script>
 {% endblock %}
-
 {% block login_class %}
     layui-this
 {% endblock %}

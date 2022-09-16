@@ -1,9 +1,26 @@
+.login{
+    width: 440px;
+    padding: 20px;
+    margin: 20vh auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: -2px -2px 25px #fff;
+}
+.tip{
+    font-size:14px;
+    color: red;
+    text-align: center;
+    margin: 10px;
+    margin-top: -10px;
+}
+
+
 * {
     padding: 0;
     margin: 0;
 }
 body {
-    background: url('/static/home/images/demo-1-bg.jpg')no-repeat;
+    background: url('/static/img/bg.jpg')no-repeat;
     height: 100vh;
 }
 
@@ -44,7 +61,6 @@ body {
     text-align: center;
     vertical-align: middle;
 }
-
 
 .input-div label {
     position: absolute;
@@ -108,5 +124,12 @@ body {
         height: 5vh;
     }
 }
-
-
+.layui-form-item {
+    padding-right: 60px;
+    margin-bottom: 30px;
+}
+h1{
+    position: relative;
+    text-align: center;
+    top: -60px;
+}

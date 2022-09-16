@@ -13,7 +13,6 @@ manage.add_command('db',MigrateCommand) ## 添加迁移命令
     #session['name'] = 'clwy' #设置一个假的session,仅仅用来测试session
     #return session['name']
 
-
 if __name__ == '__main__':
     print(app.url_map)  # 输出路由映射
     manage.run()
