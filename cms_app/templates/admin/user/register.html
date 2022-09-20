@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'admin/base.html' %}
 {% block title %}
     在线博客平台.注册
 {% endblock %}
@@ -49,7 +49,7 @@
                 </div>
             </div>
         </form>
-
+    </div>
 <script>
     $(function (){
         //注册
@@ -82,5 +82,8 @@
         })
     })
 </script>
-    </div>
+{% endblock %}
+
+{% block register_class %}
+    layui-this
 {% endblock %}

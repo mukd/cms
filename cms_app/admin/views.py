@@ -7,13 +7,12 @@ from cms_app import db
 from cms_app.utils.common import login_required #引入装饰器
 
 #后台首页
-@admin_bule.route('/admin')
-@login_required
+@admin_bule.route('/')
 def hello():
-    return render_template('/admin/index/index.html')
+    return render_template('admin/index/index.html')
 
 #后台注册
-@admin_bule.route('/admin/user/register',methods=['GET','POST'])
+@admin_bule.route('/admin/register',methods=['GET','POST'])
 def register():
     if request.method == 'POST':
         data = json.loads(request.get_data())
@@ -45,26 +44,57 @@ def register():
         return render_template('admin/user/register.html')
 
 #后台登录
-@admin_bule.route('/admin/user/login',methods=['GET','POST'])
+@admin_bule.route('/admin/login',methods=['POST','GET'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        user = User.query.filter_by(username=username).first()
+        username = request.form.get('username')
+        password = request.form.get('password')
+        user = User.query.filter(User.username==username).first()
         if user is None or not user.check_password(password):
             flash('用户名者密码错误！')
             return redirect(request.referrer)
         #登录成功后,存储用户信息到session
-        session['user'] = user.username
+        session['username'] = user.username
         session.permanent = True
         return redirect(url_for('admin_bule.hello'))
     return render_template('admin/user/login.html')
+
+#修改密码
+@admin_bule.route('/admin/updatePwd',methods=['POST','GET'])
+@login_required
+def update():
+    if request.method == 'GET':
+        return render_template('admin/index/updatePwd.html')
+    if request.method == 'POST':
+        lodPwd = request.form.get('lodPwd')
+        newPwd1 = request.form.get('newPwd1')
+        newPwd2 = request.form.get('newPwd2')
+        username = session.get('username')
+        user = User.query.filter(User.username==username).first()
+        if user.check_password(user.password,lodPwd):
+            if newPwd1 != newPwd2:
+                flash('两次密码不一致！')
+                return render_template('admin/index/updatePwd.html')
+            else:
+                user.check_password(newPwd2)
+                db.session.commit()
+                flash('修改成功！')
+                return render_template('admin/index/updatePwd.html')
+        else:
+            flash('原密码错误！')
+            return render_template('admin/index/updatePwd.html')
+
+#关于页面
+@admin_bule.route('/about')
+def about():
+    return render_template('admin/about.html')
 
 #后台退出
 @admin_bule.route('/admin/logout')
 def logout():
     #退出的本质就是清除session
-    session.pop('user')
-    return redirect('/admin/user/login') #退出后跳转到登录界面
-
+    #session.pop('user')
+    session.clear()
+    #return redirect('/admin/user/login') #退出后跳转到登录界面
+    return redirect(url_for('admin_bule.hello'))
 
