@@ -16,7 +16,5 @@ def create_app(config_name): #传入要生产的模式参数
     app.register_blueprint(home_blue)
     from cms_app.admin import admin_bule
     app.register_blueprint(admin_bule)
-    from cms_app.admin.type import type_blue
-    app.register_blueprint(type_blue)
     return app
 

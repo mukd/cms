@@ -1,11 +1,13 @@
 import re
-from werkzeug.security import generate_password_hash
-from . import admin_bule #导入蓝图对象
-from flask import render_template, url_for, flash, redirect, session, request, jsonify,json
-from cms_app.model.models import User
-from cms_app import db
-from cms_app.utils.common import login_required #引入装饰器
 
+from flask import render_template, url_for, flash, redirect, session, request, jsonify, json
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from cms_app import db
+from cms_app.model.models import User
+from . import admin_bule  # 导入蓝图对象
+from ..utils.captcha import  imgCode
+from ..utils.common import login_limt
 #后台首页
 @admin_bule.route('/')
 def hello():
@@ -49,7 +51,12 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        captcha = request.form.get('captcha').lower()
         user = User.query.filter(User.username==username).first()
+        if captcha != session['imageCode'].lower():
+            flash('图片验证码错误')
+            return redirect(request.referrer)
+
         if user is None or not user.check_password(password):
             flash('用户名者密码错误！')
             return redirect(request.referrer)
@@ -59,9 +66,14 @@ def login():
         return redirect(url_for('admin_bule.hello'))
     return render_template('admin/user/login.html')
 
+#验证码
+@admin_bule.route('/admin/imgCode')
+def generate_image_code():
+    return imgCode()
+
 #修改密码
 @admin_bule.route('/admin/updatePwd',methods=['POST','GET'])
-@login_required
+@login_limt
 def update():
     if request.method == 'GET':
         return render_template('admin/index/updatePwd.html')
@@ -71,12 +83,12 @@ def update():
         newPwd2 = request.form.get('newPwd2')
         username = session.get('username')
         user = User.query.filter(User.username==username).first()
-        if user.check_password(user.password,lodPwd):
+        if check_password_hash(user.password,lodPwd):
             if newPwd1 != newPwd2:
                 flash('两次密码不一致！')
                 return render_template('admin/index/updatePwd.html')
             else:
-                user.check_password(newPwd2)
+                user.password = generate_password_hash(newPwd2)
                 db.session.commit()
                 flash('修改成功！')
                 return render_template('admin/index/updatePwd.html')

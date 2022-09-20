@@ -31,18 +31,6 @@ def login_statue():
     # 如果没有登录，返回空
     return {}
 
-#404页面
-app.errorhandler(404)
-def page_not_found(e):
-    return render_template('admin/404.html'), 404
-
-#505页面
-app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('admin/404.html'), 500
-
-
-
 if __name__ == '__main__':
     print(app.url_map)  # 输出路由映射
     manage.run()
