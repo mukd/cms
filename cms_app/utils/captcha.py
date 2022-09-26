@@ -38,12 +38,12 @@ class imageCode():
     # 新图片对象
     im = Image.new('RGB', (width, height), 'white')
     # 字体
-    font = ImageFont.truetype('cms_app/static/layui/font/iconfont.ttf')
+    font = ImageFont.truetype('cms_app/static/layui/font/Arial.ttf',40)
     # draw对象
     draw = ImageDraw.Draw(im)
     # 绘制字符串
     for item in range(4):
-        draw.text((5 + random.randint(-3, 3) + 23 * item, 5 + random.randint(-3, 3)),text=code[item], fill=rndColor())
+        draw.text((5 + random.randint(-3, 3) + 23 * item, 5 + random.randint(-3, 3)),text=code[item], fill=rndColor(),font=font)
     # 划线
     self.drawLines(draw,2,width,height)
     return im, code
