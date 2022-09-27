@@ -6,6 +6,7 @@
     border-radius: 15px;
     box-shadow: -2px -2px 25px #fff;
 }
+
 .tip{
     font-size:14px;
     color: red;
@@ -14,6 +15,7 @@
     margin-top: -10px;
 }
 .layui-form-item {
+    width: 340px;
     padding-right: 60px;
     margin-bottom: 30px;
 }
@@ -21,4 +23,13 @@ h1{
     position: relative;
     text-align: center;
     top: -60px;
+}
+
+.inputdiv{
+        display:flex;border: 1px solid #D2D2D2!important;background-color: #fff;height: 38px;line-height: 38px;padding: 0px 19px;
+        border-radius: 19px;
+}
+
+.layui-input{
+            border-style: none;
 }

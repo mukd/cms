@@ -23,3 +23,7 @@ session测试
 python manage.py db init  #初始化迁移文件
 你会发现项目根目录自动生成了 migrations 文件夹，然后在终端执行数据库初始化：
 python manage.py db migrate -m 'init_tables'
+
+数据库迁移(新建表)
+python manage.py db migrate -m 'init_tables' #生成迁移文件
+python manage.py db upgrade #运行迁移

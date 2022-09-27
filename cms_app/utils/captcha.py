@@ -16,7 +16,6 @@ class imageCode():
   '''
   验证码处理
   '''
-
   def geneText(self):
     '''生成4位验证码'''
     return ''.join(random.sample(string.ascii_letters + string.digits, 4)) #ascii_letters是生成所有字母 digits是生成所有数字0-9
@@ -38,7 +37,7 @@ class imageCode():
     # 新图片对象
     im = Image.new('RGB', (width, height), 'white')
     # 字体
-    font = ImageFont.truetype('cms_app/static/layui/font/Arial.ttf',40)
+    font = ImageFont.truetype('cms_app/static/layui/font/Arial.ttf',30)
     # draw对象
     draw = ImageDraw.Draw(im)
     # 绘制字符串

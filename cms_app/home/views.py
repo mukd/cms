@@ -4,6 +4,10 @@ from flask import render_template,request
 import os
 from werkzeug.utils import secure_filename
 
+@home_blue.route('/admin')
+def hello():
+    return render_template('/home/index/index.html')
+
 #上传文件
 cms_app.config['UPLOAD_FOLDER'] = 'upload/'
 @home_blue.route('/upload')

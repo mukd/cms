@@ -10,5 +10,4 @@ def login_limt(func):
         if not user:
             return redirect('/admin/login')
         return func(*args, **kwargs)
-
     return inner

@@ -1,13 +1,12 @@
 import re
-
 from flask import render_template, url_for, flash, redirect, session, request, jsonify, json
 from werkzeug.security import generate_password_hash, check_password_hash
-
 from cms_app import db
 from cms_app.model.models import User
 from . import admin_bule  # 导入蓝图对象
 from ..utils.captcha import  imgCode
 from ..utils.common import login_limt
+
 #后台首页
 @admin_bule.route('/')
 def hello():
@@ -56,7 +55,6 @@ def login():
         if captcha != session['imageCode'].lower():
             flash('图片验证码错误')
             return redirect(request.referrer)
-
         if user is None or not user.check_password(password):
             flash('用户名者密码错误！')
             return redirect(request.referrer)
@@ -109,4 +107,3 @@ def logout():
     session.clear()
     #return redirect('/admin/user/login') #退出后跳转到登录界面
     return redirect(url_for('admin_bule.hello'))
-
