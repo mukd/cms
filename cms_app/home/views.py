@@ -3,6 +3,7 @@ from . import home_blue
 from flask import render_template,request
 import os
 from werkzeug.utils import secure_filename
+from cms_app.utils.common import login_limt
 
 @home_blue.route('/admin')
 def hello():

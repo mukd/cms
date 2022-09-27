@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="/static/css/register.css">
 {% endblock %}
 
-
 {% block content %}
     <div class="register">
         <h1>登录</h1>
@@ -34,7 +33,7 @@
                 <div class="layui-input-block inputdiv">
                     <label class="layui-form-login-icon layui-icon layui-icon-vercode" for="captcha"></label>
                     <input type="text" name="captcha" lay-verify="required|captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="">
-                    <img id="verify_code" class="verify_code" src="/admin/imgCode" onclick="this.src='/admin/imgCode?'+ Math.random()">
+                    <img id="verify_code" style="cursor: pointer" class="verify_code" src="/admin/imgCode" onclick="this.src='/admin/imgCode?'+ Math.random()">
                 </div>
             </div>
             <div class="layui-form-item">
