@@ -33,7 +33,7 @@
                 <div class="layui-input-block inputdiv">
                     <label class="layui-form-login-icon layui-icon layui-icon-vercode" for="captcha"></label>
                     <input type="text" name="captcha" lay-verify="required|captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="">
-                    <img id="verify_code" style="cursor: pointer" class="verify_code" src="/admin/imgCode" onclick="this.src='/admin/imgCode?'+ Math.random()">
+                    <img id="verify_code" style="cursor: pointer" class="verify_code" src="/imgCode" onclick="this.src='/imgCode?'+ Math.random()">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -69,7 +69,7 @@
             } else {
               //登录失败则刷新图片验证码
               var tagImg = document.getElementById('verify_code');
-              tagImg.src='admin/imgCode?'+ Math.random();
+              tagImg.src='imgCode?'+ Math.random();
               console.log(data['msg']);
               layer.msg(data['msg']);
             }

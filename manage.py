@@ -9,10 +9,6 @@ manage = Manager(app) #实例化管理器
 Migrate(app,db) # 注入框架实例和数据实例
 manage.add_command('db',MigrateCommand) ## 添加迁移命令
 
-#@app.route('/cms')
-#def hei():
-    #session['name'] = 'clwy' #设置一个假的session,仅仅用来测试session
-    #return session['name']
 
 # 上下文处理器，定义用户当前是否登录状态，全局可访问
 @app.context_processor
@@ -40,8 +36,6 @@ def page_not_found(e):
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('404.html'),500
-
-
 
 if __name__ == '__main__':
     print(app.url_map)  # 输出路由映射

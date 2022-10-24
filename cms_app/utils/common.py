@@ -8,6 +8,6 @@ def login_limt(func):
     def inner(*args, **kwargs):
         user = session.get('username')
         if not user:
-            return redirect('/admin/login')
+            return redirect('/login')
         return func(*args, **kwargs)
     return inner

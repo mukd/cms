@@ -13,7 +13,7 @@ def hello():
     return render_template('admin/index/index.html')
 
 #后台注册
-@admin_bule.route('/admin/register',methods=['GET','POST'])
+@admin_bule.route('/register',methods=['GET','POST'])
 def register():
     if request.method == 'POST':
         data = json.loads(request.get_data())
@@ -45,7 +45,7 @@ def register():
         return render_template('admin/user/register.html')
 
 #后台登录
-@admin_bule.route('/admin/login',methods=['POST','GET'])
+@admin_bule.route('/login',methods=['POST','GET'])
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
@@ -56,7 +56,7 @@ def login():
             flash('图片验证码错误')
             return redirect(request.referrer)
         if user is None or not user.check_password(password):
-            flash('用户名者密码错误！')
+            flash('用户名者或密码错误！')
             return redirect(request.referrer)
         #登录成功后,存储用户信息到session
         session['username'] = user.username
@@ -65,12 +65,12 @@ def login():
     return render_template('admin/user/login.html')
 
 #验证码
-@admin_bule.route('/admin/imgCode')
+@admin_bule.route('/imgCode')
 def generate_image_code():
     return imgCode()
 
 #修改密码
-@admin_bule.route('/admin/updatePwd',methods=['POST','GET'])
+@admin_bule.route('/updatePwd',methods=['POST','GET'])
 @login_limt
 def update():
     if request.method == 'GET':
@@ -100,7 +100,7 @@ def about():
     return render_template('admin/about.html')
 
 #后台退出
-@admin_bule.route('/admin/logout')
+@admin_bule.route('/logout')
 def logout():
     #退出的本质就是清除session
     #session.pop('user')

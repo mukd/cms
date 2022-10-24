@@ -68,14 +68,14 @@
         //其他js验证自行完善
             $.ajax({
                 type:'POST',
-                url:'/admin/user/register',
+                url:'/register',
                 data:JSON.stringify(info),//js对象转换成json格式发送给后端
                 success:function (data){ //后端返回（回调）过来的数据（信息）
                     if (data.stata==0){
                         alert(data.msg)
                     }else {
                         alert(data.msg)
-                        location.href='/admin/user/login'//注册成功后跳转到登录
+                        location.href='/login'//注册成功后跳转到登录
                     }
                 }
             })

@@ -1,11 +1,14 @@
 .main{
     padding-top: 15px;
+
 }
 .main > ul > li{
     padding-bottom: 10px;
     padding-top: 10px;
     border-bottom: 1px dashed burlywood;
+
 }
+
 .title{
     font-size: 20px;
     display: inherit;
@@ -14,4 +17,7 @@
 .operation{
     float: right;
     padding-right: 20px;
+}
+th{
+
 }
