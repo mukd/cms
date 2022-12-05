@@ -9,7 +9,6 @@ manage = Manager(app) #实例化管理器
 Migrate(app,db) # 注入框架实例和数据实例
 manage.add_command('db',MigrateCommand) ## 添加迁移命令
 
-
 # 上下文处理器，定义用户当前是否登录状态，全局可访问
 @app.context_processor
 def login_statue():

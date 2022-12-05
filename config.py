@@ -17,7 +17,6 @@ class Config:
     PERMANENT_SESSION_LIFETIME = 86400  # 设置session过期时间
 
 
-
 # 定义开发模式的配置
 class developmentConfig(Config):
     DEBUG = True
