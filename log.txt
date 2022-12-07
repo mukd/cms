@@ -26,3 +26,7 @@ python manage.py db migrate -m 'init_tables'
 数据库迁移(新建表)
 python manage.py db migrate -m 'init_tables' #生成迁移文件
 python manage.py db upgrade #运行
+#生成项目requirements.txt
+pip freeze > D:\cms\requirements.txt
+安装项目所需要的库
+pip install -r requirements.txt

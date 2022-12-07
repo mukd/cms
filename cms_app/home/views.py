@@ -29,6 +29,7 @@ def writeblog():
 @login_limt
 def main():
     return render_template("home/blogAll.html")
+
 @home_blue.route('/get_data',methods=['POST'])
 @login_limt
 def get_data():

@@ -1,6 +1,6 @@
-from flask import Flask,render_template
+from flask import Flask
 from config import config  # 导入配置信息
-from flask_sqlalchemy import SQLAlchemy #导入数据库扩展
+from flask_sqlalchemy import SQLAlchemy #导入数据库扩展 flask_sqlachemy==2.5.1
 #from flask_session import Session #导入session扩展
 app = Flask(__name__)
 db = SQLAlchemy() #去掉实例化
