@@ -20,7 +20,7 @@
 {% block content %}
     <div class="main">
         <h1>{{ blog.title }}</h1>
-        <p>发布人：{{ blog.user.name }} &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ blog.create_time }}</p>
+        <p>发布人:{{ blog.user.username}} &nbsp;&nbsp;&nbsp;&nbsp;博客发布时间:{{ blog.create_time }}</p>
         <hr>
         <div id="test">
             <textarea>{{ blog.text }}</textarea>
@@ -36,7 +36,7 @@
             {% for com in comment %}
                 <li>
                     <p class="myText">{{ com.text }}</p>
-                    <p>评论人：{{ com.user.name }} &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ com.create_time }}</p>
+                    <p>评论人：{{ com.user.username }} &nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{ com.create_time }}</p>
                 </li>
             {% endfor %}
         </ul>
@@ -79,11 +79,15 @@
                         var blogId = $("#blog_id").val();
                         if(text == "" || text == undefined){
                             layer.msg("评论不能为空哦！", {icon: 0});
-                        }else {
-                            $.post("/blog/comment", {text: text, blogId: blogId}, function (result) {
+                        } else {
+                            $.post("/comment", {text: text, blogId: blogId}, function (result) {
+
                                 if (result.success) {
-                                    window.location.href = '/blog/showBlog/' + blogId;
+                                    layer.msg(result.message, {icon: 1}),
+                                        window.location.href = '/showBlog/' + blogId //页面刷新
+
                                 }
+
                             })
                         }
                     {% else %}

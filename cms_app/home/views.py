@@ -25,54 +25,25 @@ def writeblog():
         return render_template('home/blogSuccess.html',title=title,id=blog.id)
 
 #展示全部博客
-@home_blue.route('/blogAll', methods=['GET'])
-@login_limt
-def main():
-    return render_template("home/blogAll.html")
-
-@home_blue.route('/get_data',methods=['POST'])
-@login_limt
-def get_data():
-    data = Blog.query.order_by(Blog.id).all()
-    limit = int(request.form.get("pageSize"))
-    page = int(request.form.get("currentPage"))
-    start = (page - 1) * limit
-    end = page * limit if len(data) > page * limit else len(data)
-    ret = [{"id": data[i].id, "name": data[i].title,'create_time':data[i].create_time} for i in range(start, end)]
-    return {"data": ret, "count": len(data)}
-
-''''
-#查看个人博客
-@home_blue.route('/show_data',methods=['POST'])
-@login_limt
-def myBlog():
-    username = session.get('username')
-    user = User.query.filter(User.username == username).first()
-    data = Blog.query.filter(Blog.user_id == user.id).order_by(Blog.create_time.desc()).all()
-    limit = int(request.form.get("pageSize"))
-    page = int(request.form.get("currentPage"))
-    start = (page - 1) * limit
-    end = page * limit if len(data) > page * limit else len(data)
-    ret = [{"id": data[i].id, "name": data[i].title, 'create_time': data[i].create_time} for i in range(start, end)]
-    return {"data": ret, "count": len(data)}
-
-@home_blue.route('/myBlog',methods=['GET'])
-@login_limt
-def main_myblog():
-    return render_template('home/myBlog.html')
-'''
+@home_blue.route('/blogAll')
+def blogAll():
+    # 查看所有文章列表
+    page = request.args.get('page', 1, type=int)
+    pagination = Blog.query.filter(Blog.user_id).order_by(Blog.create_time).paginate(page, per_page=10, error_out=False)
+    post_list = pagination.items
+    return render_template('home/blogAll.html', post_list=post_list, pagination=pagination)
 
 #查看个人博客
 @home_blue.route('/myBlog')
 @login_limt
-def article():
+def myBlog():
     # 查看文章列表
     username = session.get('username')
     user = User.query.filter(User.username == username).first()
     page = request.args.get('page', 1, type=int)
     pagination = Blog.query.filter(Blog.user_id == user.id).order_by(Blog.create_time).paginate(page, per_page=10, error_out=False)
     post_list = pagination.items
-    return render_template('home/article.html', post_list=post_list, pagination=pagination)
+    return render_template('home/myBlog.html', post_list=post_list, pagination=pagination)
 
 # 博客详情页面
 @home_blue.route('/showBlog/<id>')
@@ -123,8 +94,28 @@ def comment():
     user = User.query.filter(User.username==username).first()
     comment = Comment(text=text,create_time=create_time,blog_id=blogId,user_id=user.id)
     db.session.add(comment)
-    db.session.commit()
+    db.session.commit();
     return {
         'success':True,
-        'message':'评论成功！',
+        'message':'评论成功！'
+    }
+#用户所有评论
+@home_blue.route('/myComment')
+@login_limt
+def myComment():
+    username = session.get('username')
+    user = User.query.filter(User.username==username).first()
+    #order_by按照时间倒叙排序
+    commentList = Comment.query.filter(Comment.user_id==user.id).order_by(Comment.create_time.desc()).all()
+    return render_template('home/myComment.html',commentList=commentList)
+
+#删除评论
+@home_blue.route('/deleteCom/<id>')
+def deleteCom(id):
+    com = Comment.query.filter(Comment.id==id).first()
+    db.session.delete(com)
+    db.session.commit()
+    return {
+        'state':True,
+        'msg':'删除评论成功！'
     }

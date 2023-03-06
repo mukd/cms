@@ -60,6 +60,7 @@ def login():
             return redirect(request.referrer)
         #登录成功后,存储用户信息到session
         session['username'] = user.username
+
         session.permanent = True
         return redirect(url_for('admin_bule.hello'))
     return render_template('admin/user/login.html')
